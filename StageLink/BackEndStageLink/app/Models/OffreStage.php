@@ -17,6 +17,7 @@ class OffreStage extends Model
         'titre',
         'description',
         'exigences',
+        'competences_requises',
         'duree',
         'date_debut',
         'date_fin',
@@ -27,16 +28,18 @@ class OffreStage extends Model
     ];
 
     protected $casts = [
-        'date_debut' => 'date',
-        'date_fin' => 'date',
-        'remuneration' => 'decimal:2',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
+        'date_debut' => 'datetime',
+        'date_fin' => 'datetime',
+        'remuneration' => 'float',
+        'date_creation' => 'datetime',
+        'date_modification' => 'datetime'
     ];
+
+    protected $with = ['entreprise'];
 
     public function entreprise()
     {
-        return $this->belongsTo(Entreprise::class, 'id_entreprise');
+        return $this->belongsTo(Entreprise::class, 'id_entreprise', 'id_entreprise');
     }
 
     public function candidatures()

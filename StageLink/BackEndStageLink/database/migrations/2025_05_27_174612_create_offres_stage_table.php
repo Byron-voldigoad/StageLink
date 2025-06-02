@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOffresStageTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -14,21 +14,32 @@ class CreateOffresStageTable extends Migration
     public function up()
     {
         Schema::create('offres_stage', function (Blueprint $table) {
-            $table->bigIncrements('id_offre_stage');
-            $table->unsignedBigInteger('id_entreprise');
-            $table->string('titre', 255);
+            $table->id('id_offre_stage');
+            $table->foreignId('id_entreprise')->constrained('entreprises', 'id_entreprise')->onDelete('cascade');
+            $table->string('titre');
             $table->text('description');
             $table->text('exigences')->nullable();
-            $table->string('duree', 100)->nullable();
+            $table->text('competences_requises')->nullable();
+            $table->string('duree')->nullable();
             $table->date('date_debut')->nullable();
             $table->date('date_fin')->nullable();
-            $table->string('localisation', 255)->nullable();
+            $table->string('localisation')->nullable();
             $table->decimal('remuneration', 10, 2)->nullable();
-            $table->string('secteur', 255)->nullable();
+            $table->enum('secteur', [
+                'developpement_web',
+                'developpement_mobile',
+                'intelligence_artificielle',
+                'cybersecurite',
+                'cloud_computing',
+                'data_science',
+                'reseaux',
+                'systemes_embarques',
+                'design_ui_ux',
+                'gestion_de_projet'
+            ])->nullable();
             $table->enum('statut', ['ouvert', 'ferme', 'en_attente'])->default('en_attente');
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-            $table->foreign('id_entreprise')->references('id_entreprise')->on('entreprises')->onDelete('cascade');
+            $table->timestamp('date_creation')->useCurrent();
+            $table->timestamp('date_modification')->useCurrentOnUpdate()->nullable();
         });
     }
 
@@ -41,4 +52,4 @@ class CreateOffresStageTable extends Migration
     {
         Schema::dropIfExists('offres_stage');
     }
-}
+};
