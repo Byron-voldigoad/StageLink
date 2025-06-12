@@ -20,6 +20,10 @@ class CreateEntreprisesTable extends Migration
             $table->string('logo_path')->nullable();
             $table->string('nif')->unique()->nullable();
             $table->boolean('verifie')->default(false);
+            $table->string('quartier')->nullable();
+            $table->string('email')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
             $table->timestamps();
         });
     }

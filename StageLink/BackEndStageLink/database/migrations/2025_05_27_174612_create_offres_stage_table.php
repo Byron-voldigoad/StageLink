@@ -38,8 +38,7 @@ return new class extends Migration
                 'gestion_de_projet'
             ])->nullable();
             $table->enum('statut', ['ouvert', 'ferme', 'en_attente'])->default('en_attente');
-            $table->timestamp('date_creation')->useCurrent();
-            $table->timestamp('date_modification')->useCurrentOnUpdate()->nullable();
+            $table->timestamps();
         });
     }
 

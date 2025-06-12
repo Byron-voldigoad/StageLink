@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EntrepriseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,6 @@ Route::apiResources([
     'evaluations-tuteurs' => 'App\Http\Controllers\EvaluationTuteurController',
     'soumissions-etudiants' => 'App\Http\Controllers\SoumissionEtudiantController',
 ]);
+
+// Routes pour les entreprises
+Route::apiResource('entreprises', EntrepriseController::class);
